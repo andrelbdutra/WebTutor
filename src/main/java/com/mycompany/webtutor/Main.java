@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.bancovirtual;
+package com.mycompany.webtutor;
 
 //Aluno: André Luís Braga Dutra - 201735038
 //Aluno: Wesley de Almeida Cruz - 201765567AC
