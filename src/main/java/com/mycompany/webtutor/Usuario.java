@@ -5,42 +5,91 @@
  */
 package com.mycompany.webtutor;
 
+import java.util.ArrayList;
 /**
  *
  * @author André
  */
 public abstract class Usuario {
+    protected int ID;
+    private boolean aluno;
+    private boolean professor;
+    private static int quantidadeContas;
     private String nome;
     private String sobrenome;
     private String nomeLogin;
     private String email;
-    private int cpf;
-    private char sexo;
+    private String cpf;
+    private String sexo;
     private int telefone;
     private String senha;
 
-    public abstract boolean validaLogin(String nomeLogin, String senha);
-    
     public Usuario() {
+        this.ID = quantidadeContas++;
+        nome = "";
+        sobrenome = "";
+        nomeLogin = "";
+        email = "";
+        cpf = "";
+        sexo = "";
+        telefone = 0;
+        senha = "";
     } 
     
-    public Usuario(String nome, String sobrenome, String nomeLog, String email, int cpf, char sexo, int telefone, String sen) {
-        nome = nome;
-        sobrenome = sobrenome;
-        nomeLogin = nomeLog;
-        email = email;
-        cpf = cpf;
-        sexo = sexo;
-        telefone = telefone;
-        senha = sen;
+    public Usuario(String nom, String sobrenom, String nomeLogi, String emai, String cp, String sex, int tel, String senh) {
+        this.ID = quantidadeContas++;
+        nome = nom;
+        sobrenome = sobrenom;
+        nomeLogin = nomeLogi;
+        email = emai;
+        cpf = cp;
+        sexo = sex;
+        telefone = tel;
+        senha = senh;
     }    
     
+    public boolean isAluno() {
+        return aluno;
+    }
+
+    public void setAluno(boolean aluno) {
+        this.aluno = aluno;
+    }
+
+    public boolean isProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(boolean professor) {
+        this.professor = professor;
+    }
     
-    public char getSexo() {
+    public Usuario getUsuario(){
+        return this;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public static int getQuantidadeContas() {
+        return quantidadeContas;
+    }
+
+    public static void setQuantidadeContas(int quantidadeContas) {
+        Usuario.quantidadeContas = quantidadeContas;
+    }
+    
+    
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -68,11 +117,11 @@ public abstract class Usuario {
         this.email = email;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
      

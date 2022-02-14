@@ -5,29 +5,72 @@
  */
 package com.mycompany.webtutor;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author André
  */
 public class UsuarioProfessor extends Usuario{
+    private boolean professor;
+    private static int quantidadeProfessores;
+    private static int quantidadeAlunos;
     private String materia;
+    private ArrayList<UsuarioAluno> alunos = new ArrayList<UsuarioAluno>();
     private String feedback[];
 
     public UsuarioProfessor(){
         
     }
     
-    public UsuarioProfessor(String nome, String sobrenome, String nomeLog, String email, int cpf, char sexo, int telefone, String sen) {
+    public UsuarioProfessor(String nome, String sobrenome, String nomeLog, String email, String cpf, String sexo, int telefone,String materia, String sen) {
         super(nome, sobrenome, nomeLog, email, cpf, sexo, telefone, sen);
+        this.professor = true;
+        this.materia = materia;
+        if(nome != null)
+        quantidadeProfessores++;
     }
 
-    @Override
-    public boolean validaLogin(String nomeLogin, String senha) {
-        if(getNomeLogin().equals(nomeLogin) && getSenha().equals(senha)){
-            return true;
-        }else{
-            return false;
-        }
+    public void addAlunos(UsuarioAluno aluno){
+        alunos.add(aluno);
+        this.quantidadeAlunos++;
+    }
+
+    public static int getQuantidadeAlunos() {
+        return quantidadeAlunos;
+    }
+    
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+    
+    public ArrayList<UsuarioAluno> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(ArrayList<UsuarioAluno> alunos) {
+        this.alunos = alunos;
+    }
+
+    public static int getQuantidadeProfessores() {
+        return quantidadeProfessores;
+    }
+    
+        public static void tiraQuantidadeProfessores() {
+        quantidadeProfessores--;
+    }
+
+    public boolean isProfessor() {
+        return professor;
+    }
+
+    public UsuarioProfessor getUsuarioProfessor(){
+        return this;
     }
     
     public String getMateria() {
@@ -45,5 +88,5 @@ public class UsuarioProfessor extends Usuario{
     public void setFeedback(String[] feedback) {
         this.feedback = feedback;
     }
-    
+
 }

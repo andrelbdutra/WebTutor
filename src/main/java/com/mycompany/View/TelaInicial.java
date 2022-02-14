@@ -129,11 +129,15 @@ public class TelaInicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroActionPerformed
-
+        // Vai para a tela de cadastro
+        new TelaCadastro().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonCadastroActionPerformed
 
     private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
-
+        // Vai para a tela de login
+        new TelaLogin().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonLoginActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
