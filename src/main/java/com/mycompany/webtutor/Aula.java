@@ -17,6 +17,16 @@ public class Aula {
     private UsuarioAluno aluno;
     private UsuarioProfessor professor;
     private boolean status;
+    private String link;
+    private static int aulaId;
+    
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public boolean isStatus() {
         return status;
@@ -30,6 +40,8 @@ public class Aula {
         this.professor = professor;
         this.data = data;
         this.status = false;
+        this.link = "-";
+       
         }
 
 

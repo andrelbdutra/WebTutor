@@ -23,6 +23,7 @@ public abstract class Usuario {
     private String sexo;
     private int telefone;
     private String senha;
+    
 
     public Usuario() {
         this.ID = quantidadeContas++;

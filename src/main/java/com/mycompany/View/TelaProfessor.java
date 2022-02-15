@@ -43,7 +43,7 @@ public class TelaProfessor extends javax.swing.JFrame {
             Object addLinha[] = new Object[5];
         for (int i = 0; i < list.size(); i++) {
             addLinha[0] = list.get(i).getData();
-            addLinha[1] = list.get(i).getProfessor().getID();
+            addLinha[1] = i;
             addLinha[2] = list.get(i).getAluno().getNome();
             addLinha[3] = list.get(i).getProfessor().getMateria();
             if(list.get(i).isStatus() == true){

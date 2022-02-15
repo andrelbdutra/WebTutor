@@ -10,13 +10,12 @@ package com.mycompany.webtutor;
  * @author pedro
  */
 public class Feedback {
-    int id;
-    double pontuacao;
-    String descricao;
-    public Feedback(double pontuacao, String descricao){
-        this.pontuacao = pontuacao;
-        this.descricao = descricao;
-    
+    private int id;
+    private int  pontuacao;
+    private static int numeroFeedbacks;
+    public Feedback(){
+        this.pontuacao = 5;
+        
     }
 
     public int getId() {
@@ -27,21 +26,24 @@ public class Feedback {
         this.id = id;
     }
 
-    public double getPontuacao() {
-        return pontuacao;
+    public int getPontuacao() {
+        return this.pontuacao;
     }
 
-    public void setPontuacao(double pontuacao) {
+    public void setPontuacao(int pontuacao) {
         this.pontuacao = pontuacao;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public int getNumeroFeedbacks() {
+        return numeroFeedbacks;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNumeroFeedbacks(int numeroFeedbacks) {
+        this.numeroFeedbacks = numeroFeedbacks;
     }
       
-    
+    public void addFeedback(int feedback){
+        numeroFeedbacks ++;
+        this.pontuacao = (pontuacao + feedback)/numeroFeedbacks;
+    }
 }

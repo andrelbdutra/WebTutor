@@ -43,13 +43,14 @@ public class TelaAddAula extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         List<UsuarioProfessor> list = new ListaProfessores().getUsuarios();
         List<Usuario> list1 = new ListaUsuarios().getUsuarios();
-        Object addLinha[] = new Object[3];
+        Object addLinha[] = new Object[4];
         for (int i = 0; i < Usuario.getQuantidadeContas(); i++) {
             
            if(list1.get(i).getUsuario().isProfessor() && list1.get(i).getUsuario()!= null){
                 addLinha[0] = list1.get(i).getID();
                 addLinha[1] = list1.get(i).getNome();
                 addLinha[2] = new ListaProfessores().getUsuarios().get(list1.get(i).getID()).getUsuarioProfessor().getMateria();
+                addLinha[3] = new ListaProfessores().getUsuarios().get((list1.get(i).getID())).getFeedback().getPontuacao();
                 model.addRow(addLinha);
            }
         }
@@ -87,9 +88,17 @@ public class TelaAddAula extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Professor", "Matéria"
+                "ID", "Professor", "Matéria", "Avaliaçao"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

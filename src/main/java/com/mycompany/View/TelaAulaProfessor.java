@@ -47,7 +47,7 @@ private int idProfessor;
         jLabel6 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtLinkMeet = new javax.swing.JTextArea();
 
         jLabel1.setText("jLabel1");
 
@@ -110,18 +110,18 @@ private int idProfessor;
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Mensagem");
+        jLabel6.setText("Link Meet:");
 
-        jButton4.setText("Enviar Mensagem");
+        jButton4.setText("Enviar Link Meet");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtLinkMeet.setColumns(20);
+        txtLinkMeet.setRows(5);
+        jScrollPane1.setViewportView(txtLinkMeet);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,26 +134,22 @@ private int idProfessor;
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(82, 82, 82)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtIdAula)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtStatus))
-                                .addGap(102, 102, 102)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addGap(160, 160, 160))
-                                    .addComponent(jScrollPane1)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(botaoAceitar))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton4)))))
-                .addContainerGap(189, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(txtIdAula)
+                                .addComponent(jLabel4)
+                                .addComponent(txtStatus))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(botaoAceitar)))
+                        .addGap(102, 102, 102)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)))))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,11 +171,11 @@ private int idProfessor;
                         .addGap(51, 51, 51)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton4)
-                            .addComponent(botaoAceitar))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addGap(23, 23, 23)
+                        .addComponent(botaoAceitar)))
                 .addContainerGap(298, Short.MAX_VALUE))
         );
 
@@ -198,52 +194,53 @@ private int idProfessor;
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).setLink(txtLinkMeet.getText());
+        jButton4.setVisible(false);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void botaoAceitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAceitarActionPerformed
+        new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).setStatus(true);
+        if(new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).isStatus() == true){
+            txtStatus.setText("Aceita");
+        }else
+        {
+            txtStatus.setText("Pendente");
+        }
+        botaoAceitar.setVisible(false);
+
+        ;// TODO add your handling code here:
+    }//GEN-LAST:event_botaoAceitarActionPerformed
+
+    private void botaoAceitarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_botaoAceitarAncestorAdded
+        if(new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).isStatus() == true){
+            botaoAceitar.setVisible(false);
+        }else
+        {
+            botaoAceitar.setVisible(true);
+        }
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoAceitarAncestorAdded
+
+    private void txtStatusAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtStatusAncestorAdded
+        if(new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).isStatus() == true){
+            txtStatus.setText("Aceita");
+        }else
+        {
+            txtStatus.setText("Pendente");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtStatusAncestorAdded
+
     private void txtIdAulaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtIdAulaAncestorAdded
         txtIdAula.setText(Integer.toString(id));// TODO add your handling code here:
     }//GEN-LAST:event_txtIdAulaAncestorAdded
 
-    private void botaoAceitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAceitarActionPerformed
-       new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).setStatus(true);
-       if(new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).isStatus() == true){
-       txtStatus.setText("Aceita");
-       }else
-       {
-            txtStatus.setText("Pendente");
-       }
-       botaoAceitar.setVisible(false);
-       
-       
-        ;// TODO add your handling code here:
-    }//GEN-LAST:event_botaoAceitarActionPerformed
-
-    private void txtStatusAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtStatusAncestorAdded
-    if(new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).isStatus() == true){
-       txtStatus.setText("Aceita");
-       }else
-       {
-            txtStatus.setText("Pendente");
-       }        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStatusAncestorAdded
-
-    private void botaoAceitarAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_botaoAceitarAncestorAdded
-     if(new ListaProfessores().getUsuarios().get(idProfessor).getListaAulas().get(id).isStatus() == true){
-       botaoAceitar.setVisible(false);
-       }else
-       {
-       botaoAceitar.setVisible(true);
-       }
-       
-           // TODO add your handling code here:
-    }//GEN-LAST:event_botaoAceitarAncestorAdded
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    new TelaProfessor(idProfessor).setVisible(true); 
-    this.dispose();// TODO add your handling code here:
+        new TelaProfessor(idProfessor).setVisible(true);
+        this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -261,8 +258,8 @@ private int idProfessor;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel txtIdAula;
+    private javax.swing.JTextArea txtLinkMeet;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,6 +18,8 @@ public class UsuarioProfessor extends Usuario{
     private String materia;
     private ArrayList<UsuarioAluno> alunos = new ArrayList<UsuarioAluno>();
     private ArrayList<Aula> listaAulas = new ArrayList<Aula>();
+    private Feedback feedback = new Feedback();
+
 
     public ArrayList<Aula> getListaAulas() {
         return listaAulas;
@@ -28,7 +30,7 @@ public class UsuarioProfessor extends Usuario{
     public void setListaAulas(ArrayList<Aula> listaAulas) {
         this.listaAulas = listaAulas;
     }
-    private String feedback[];
+    
 
     public UsuarioProfessor(){
         
@@ -76,6 +78,14 @@ public class UsuarioProfessor extends Usuario{
         quantidadeProfessores--;
     }
 
+    public Feedback getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
+    }
+
     public boolean isProfessor() {
         return professor;
     }
@@ -92,12 +102,6 @@ public class UsuarioProfessor extends Usuario{
         this.materia = materia;
     }
     
-        public String[] getFeedback() {
-        return feedback;
-    }
-
-    public void setFeedback(String[] feedback) {
-        this.feedback = feedback;
-    }
+     
 
 }
