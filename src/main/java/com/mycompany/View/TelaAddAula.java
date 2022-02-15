@@ -11,6 +11,8 @@ import com.mycompany.webtutor.ListaUsuarios;
 import com.mycompany.webtutor.Usuario;
 import com.mycompany.webtutor.UsuarioAluno;
 import com.mycompany.webtutor.UsuarioProfessor;
+import com.mycompany.webtutor.Aula;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -168,6 +170,10 @@ public class TelaAddAula extends javax.swing.JFrame {
     private void enviarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarPedidoActionPerformed
         new ListaAlunos().getUsuarios().get(id).getUsuarioAluno().addProfessores(new ListaProfessores().getUsuarios().get(Integer.parseInt(txtIdProf.getText())).getUsuarioProfessor());
         new ListaProfessores().getUsuarios().get(Integer.parseInt(txtIdProf.getText())).getUsuarioProfessor().addAlunos(new ListaAlunos().getUsuarios().get(id).getUsuarioAluno());
+        Date hoje = new Date();
+        Aula aula = new Aula(hoje,new ListaAlunos().getUsuarios().get(id).getUsuarioAluno(),new ListaProfessores().getUsuarios().get(Integer.parseInt(txtIdProf.getText())).getUsuarioProfessor());
+        new ListaAlunos().getUsuarios().get(id).getUsuarioAluno().addAula(aula);
+        new ListaProfessores().getUsuarios().get(Integer.parseInt(txtIdProf.getText())).getUsuarioProfessor().addAula(aula);
         new TelaAluno(id).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_enviarPedidoActionPerformed

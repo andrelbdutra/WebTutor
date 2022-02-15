@@ -17,6 +17,17 @@ public class UsuarioProfessor extends Usuario{
     private static int quantidadeAlunos;
     private String materia;
     private ArrayList<UsuarioAluno> alunos = new ArrayList<UsuarioAluno>();
+    private ArrayList<Aula> listaAulas = new ArrayList<Aula>();
+
+    public ArrayList<Aula> getListaAulas() {
+        return listaAulas;
+    }
+  public void addAula(Aula aula){
+        listaAulas.add(aula);
+    }
+    public void setListaAulas(ArrayList<Aula> listaAulas) {
+        this.listaAulas = listaAulas;
+    }
     private String feedback[];
 
     public UsuarioProfessor(){

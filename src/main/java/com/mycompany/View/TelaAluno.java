@@ -5,6 +5,7 @@
  */
 package com.mycompany.View;
 
+import com.mycompany.webtutor.Aula;
 import com.mycompany.webtutor.ListaAlunos;
 import com.mycompany.webtutor.ListaUsuarios;
 import com.mycompany.webtutor.Usuario;
@@ -38,12 +39,18 @@ public class TelaAluno extends javax.swing.JFrame {
         public void adicionaTabela(){
         // Cria uma cópia da lista de professores do atual aluno para a tabela.
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        List<UsuarioProfessor> list = new ListaAlunos().getUsuarios().get(id).getProfessores();
-        Object addLinha[] = new Object[3];
-        for (int i = 0; i < UsuarioAluno.getQuantidadePofessores(); i++) {
-            addLinha[0] = list.get(i).getID();
-            addLinha[1] = list.get(i).getNome();
-            addLinha[2] = list.get(i).getMateria();
+        List<Aula> list = new ListaAlunos().getUsuarios().get(id).getListaAulas();
+            Object addLinha[] = new Object[5];
+        for (int i = 0; i < list.size(); i++) {
+            addLinha[0] = list.get(i).getData();
+            addLinha[1] = list.get(i).getProfessor().getID();
+            addLinha[2] = list.get(i).getProfessor().getNome();
+            addLinha[3] = list.get(i).getProfessor().getMateria();
+            if(list.get(i).isStatus() == true){
+                addLinha[4] = "Aceita";
+            }else{
+                addLinha[4] = "Pendente";
+            }
             model.addRow(addLinha);
         }
     }
@@ -74,6 +81,9 @@ public class TelaAluno extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        txtIdAula = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Sair");
@@ -172,13 +182,34 @@ public class TelaAluno extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID professor", "Professor", "Matéria"
+                "Data", "ID Aula", "Professor", "Matéria", "Status"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Aulas");
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton5.setText("Acessar Aula");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        txtIdAula.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("ID da Aula");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -207,11 +238,18 @@ public class TelaAluno extends javax.swing.JFrame {
                                 .addComponent(idConta))
                             .addComponent(nomeAluno)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                        .addGap(97, 97, 97)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtIdAula, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton5))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,11 +267,16 @@ public class TelaAluno extends javax.swing.JFrame {
                 .addComponent(nomeAluno)
                 .addGap(19, 19, 19)
                 .addComponent(jToggleButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(txtIdAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,6 +333,12 @@ public class TelaAluno extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    
+    new TelaAulaAluno(Integer.parseInt(txtIdAula.getText()),id).setVisible(true);
+    this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Choice choice1;
     private javax.swing.JLabel idConta;
@@ -297,9 +346,11 @@ public class TelaAluno extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -308,5 +359,6 @@ public class TelaAluno extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel nomeAluno;
     private javax.swing.JLabel nomeProfessor;
+    private javax.swing.JTextField txtIdAula;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,21 +12,26 @@ import java.util.Date;
  * @author pedro
  */
 public class Aula {
-    private Materia materia;
+    
     private Date data;
     private UsuarioAluno aluno;
-    public Aula(Materia materia,Date data){
-        this.materia = materia;
+    private UsuarioProfessor professor;
+    private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public Aula(Date data, UsuarioAluno aluno, UsuarioProfessor professor){
+        this.aluno = aluno;
+        this.professor = professor;
         this.data = data;
+        this.status = false;
         }
 
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
 
     public Date getData() {
         return data;
@@ -38,6 +43,14 @@ public class Aula {
 
     public UsuarioAluno getAluno() {
         return aluno;
+    }
+
+    public UsuarioProfessor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(UsuarioProfessor professor) {
+        this.professor = professor;
     }
 
     public void setAluno(UsuarioAluno aluno) {

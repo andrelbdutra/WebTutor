@@ -5,6 +5,7 @@
  */
 package com.mycompany.View;
 
+import com.mycompany.webtutor.Aula;
 import com.mycompany.webtutor.ListaAlunos;
 import com.mycompany.webtutor.ListaProfessores;
 import com.mycompany.webtutor.ListaUsuarios;
@@ -36,13 +37,21 @@ public class TelaProfessor extends javax.swing.JFrame {
     
         public void adicionaTabela(){
         // Cria uma cópia da lista de alunos do atual professor para a tabela.
+        // Cria uma cópia da lista de professores do atual aluno para a tabela.
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        List<UsuarioAluno> list = new ListaProfessores().getUsuarios().get(id).getAlunos();
-        Object addLinha[] = new Object[3];
-        for (int i = 0; i < UsuarioProfessor.getQuantidadeAlunos(); i++) {
-            addLinha[0] = list.get(i).getID();
-            addLinha[1] = list.get(i).getNome();
-            addLinha[2] = list.get(i).getEmail();
+        List<Aula> list = new ListaProfessores().getUsuarios().get(id).getListaAulas();
+            Object addLinha[] = new Object[5];
+        for (int i = 0; i < list.size(); i++) {
+            addLinha[0] = list.get(i).getData();
+            addLinha[1] = list.get(i).getProfessor().getID();
+            addLinha[2] = list.get(i).getAluno().getNome();
+            addLinha[3] = list.get(i).getProfessor().getMateria();
+            if(list.get(i).isStatus() == true){
+                addLinha[4] = "Aceita";
+            }else{
+                addLinha[4] = "Pendente";
+            }
+                
             model.addRow(addLinha);
         }
     }   
@@ -66,6 +75,9 @@ public class TelaProfessor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        txtIdAula = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,11 +132,11 @@ public class TelaProfessor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID aluno", "Aluno", "Email"
+                "Data", "Id Aula", "Nome", "Materia", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -132,9 +144,35 @@ public class TelaProfessor extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("Data");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("Id Aula");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("Nome");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("Materia");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("Status");
+        }
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Aulas");
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButton3.setText("Acessar Aula");
+        jButton3.setPreferredSize(new java.awt.Dimension(115, 23));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        txtIdAula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdAulaActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Id da Aula:");
+        jLabel4.setPreferredSize(new java.awt.Dimension(53, 20));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,11 +198,19 @@ public class TelaProfessor extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 75, Short.MAX_VALUE)
+                .addGap(113, 150, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtIdAula, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73))
+                .addGap(69, 69, 69))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,11 +226,16 @@ public class TelaProfessor extends javax.swing.JFrame {
                     .addComponent(idConta))
                 .addGap(18, 18, 18)
                 .addComponent(nomeProfessor)
-                .addGap(53, 53, 53)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtIdAula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,16 +273,31 @@ public class TelaProfessor extends javax.swing.JFrame {
         idConta.setText(Integer.toString(new ListaProfessores().getUsuarios().get(id).getID()));
     }//GEN-LAST:event_idContaAncestorAdded
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    new TelaAulaProfessor(Integer.parseInt(txtIdAula.getText()),id).setVisible(true);
+    
+    this.dispose();
+    
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtIdAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdAulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdAulaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel idConta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel nomeProfessor;
+    private javax.swing.JTextField txtIdAula;
     // End of variables declaration//GEN-END:variables
 }
