@@ -14,8 +14,9 @@ public class Feedback {
     private int  pontuacao;
     private static int numeroFeedbacks;
     public Feedback(){
-        this.pontuacao = 5;
-        
+        this.pontuacao = 0;
+       
+ 
     }
 
     public int getId() {
