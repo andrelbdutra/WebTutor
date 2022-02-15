@@ -6,6 +6,7 @@
 package com.mycompany.View;
 
 import com.mycompany.webtutor.ListaAlunos;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -604,6 +605,7 @@ public class TelaAulaAluno extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
     new ListaAlunos().getUsuarios().get(idAluno).getListaAulas().get(idAula).getProfessor().getFeedback().addFeedback(Integer.parseInt(txtFeedback.getSelectedItem().toString()));
+    JOptionPane.showMessageDialog(null, "Feedback enviado com sucesso!");
     jButton7.setVisible(false);
     // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed

@@ -18,7 +18,7 @@ public class Aula {
     private UsuarioProfessor professor;
     private boolean status;
     private String link;
-    private static int aulaId;
+    // private static int aulaId;
     
     public String getLink() {
         return link;
